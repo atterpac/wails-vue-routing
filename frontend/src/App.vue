@@ -16,9 +16,9 @@ import Footer from './components/layout/Footer.vue'
               <router-view />
             </div>
         </div>
-        <RightDrawer /> 
+        <RightDrawer v-if="false"/> 
     </div>
-    <Footer />
+    <Footer v-if="false"/>
 </div>
 </template>
 
