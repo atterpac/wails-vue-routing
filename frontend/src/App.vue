@@ -8,11 +8,11 @@ import Footer from './components/layout/Footer.vue'
 
 <template>
 <div class="app">
-    <Header />
+    <Header style="widows: 1"/>
     <div class="container noselect">
         <LeftDrawer />
-        <div class="view-container">
-            <div class="routerview">
+        <div class="view-container noselect">
+            <div class="routerview noselect">
               <router-view />
             </div>
         </div>
