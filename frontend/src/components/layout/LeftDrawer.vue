@@ -1,14 +1,13 @@
 <template>
 <div class="drawer-container noselect">
- <div class="drawer-left" :style="{ width: isCollapse ? '160px' : '36px' }"> 
+ <div class="drawer-left" :style="{ width: props.isCollapse ?  '36px' : '160px' }"> 
     <div class="nav">
-        <div class="nav-item" v-for="item in navItems" :style="{ width: isCollapse ? '160px' : '36px' }" @click="onClick(item.path)">
-        <Component :is=item.icon fill="none" stroke="#409292" width="24px" height="24px" />
-                <p v-if="isCollapse">{{item.label}}</p>
+        <div class="nav-item" v-for="item in navItems" :style="{ width: props.isCollapse ? '36px' : '160px' }" @click="onClick(item.path)">
+        <Component :is=item.icon fill="none" :style="{ stroke: iconColor}" width="24px" height="24px" />
+                <p v-if="!props.isCollapse">{{item.label}}</p>
             </div>
         </div>
      </div>
- <div class="resize" @mousedown="startResize"></div>
 </div>
 </template>
 
@@ -38,6 +37,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    padding: 5px;
 }
 
 .nav-item {
@@ -49,13 +49,14 @@
     justify-content: flex-start;
     height: 35px;
     border-radius: 10px;
-    margin: 2px;
+    margin: 5px;
     margin-top: 10px;
+    padding: 5px;
 }
 
 
 .nav-item:hover {
-    background-color: #4d4d4d;
+    background-color: var(--gray-8);
 }
 </style>
 
@@ -64,17 +65,21 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { router } from '../../router';
 import type { Component } from 'vue';
-import { onMounted, onUnmounted } from 'vue';
 import HomeIcon from '../../assets/svg/HomeIcon.vue';
 import CueListIcon from '../../assets/svg/CueListIcon.vue'
 import LightBulbIcon from '../../assets/svg/LightBulbIcon.vue'
 import TargetIcon from '../../assets/svg/TargetIcon.vue'
+import { RouteLocation, RouteLocationPathRaw, RouteLocationRaw } from 'vue-router';
 
 interface NavItem {
     label: String,
     icon: Component,
-    path: String,
+    path: RouteLocationRaw,
 }
+
+const props = defineProps({
+    isCollapse: Boolean
+})
 
 
 const onClick = (route: RouteLocationRaw) => {
@@ -89,43 +94,9 @@ const navItems: NavItem[] = [
 
 ]
 
+const iconColor: Ref<String> = ref("var(--purple-4)")
+
 const isCollapse: Ref<boolean> = ref(true);
 // Resize 
 const currentWidth = ref(80);
-let isResizing = ref(false);
-let startX = 0;
-let startWidth = 0;
-
-const startResize = (event) => {
-    isResizing.value = true;
-    startX = event.clientX;
-    startWidth = currentWidth.value;
-
-    document.addEventListener('mousemove', resize);
-    document.addEventListener('mouseup', stopResize);
-};
-
-const resize = (event) => {
-    if (!isResizing.value) return;
-
-    const newWidth = startWidth + event.clientX - startX;
-
-    // Limit the minimum and maximum width (adjust these values as needed)
-    isCollapse.value = newWidth > startX ;
-};
-
-const stopResize = () => {
-    isResizing.value = false;
-    document.removeEventListener('mousemove', resize);
-    document.removeEventListener('mouseup', stopResize);
-};
-
-
-onMounted(() => {
-        document.addEventListener('mouseup', stopResize);
-        });
-
-onUnmounted(() => {
-        document.removeEventListener('mouseup', stopResize);
-        });
 </script>

@@ -1,7 +1,8 @@
 <template>
 <section>
+
     <div class="table">
-        <CueTable :maxHeight=900 />
+        <CueTable :maxHeight=90 />
     </div>
 </section>
 </template>
@@ -10,11 +11,42 @@
 import CueTable from '../components/tables/cues/CueTable.vue';
 </script>
 
-<style>
+<style scoped>
 
 section {
     width: 100%;
-    padding: 10px;
+    overflow: auto;
+}
+
+.header {
+    position: sticky;
+    background-color: var(--gray-8);
+    height: 40px;
+    border-radius: 10px;
+}
+
+h1 {
+    margin-left: 30px;
+    float: left;
+}
+
+button {
+    float: right;
+    margin-right: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #409292;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover{
+    border:  1px solid #a0a0a0;
+    width: 35px;
+    height: 35px;
+    transition: 50ms;
 }
 
 .table {

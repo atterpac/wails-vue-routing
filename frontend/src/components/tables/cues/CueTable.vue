@@ -1,8 +1,12 @@
 <template>
   <div class="cue-table">
-    <div class="table-container" :style="{maxHeight: props.maxHeight + 'px'}">
+    <div class="table-container" style="max-height: props.maxHeight + vh">
+      <div class="header">
+            <h1>Cues</h1>
+            <button>+</button>
+          </div>
       <table>
-        <thead>
+      <thead>
           <tr>
             <th>Cue</th>
             <th>Part</th>
@@ -48,12 +52,20 @@ const props = defineProps({
 <style scoped>
 .cue-table {
   width: 100%;
+  height: 90%;
   padding: 0px 20px 20px 20px;
-  overflow: auto;
 }
 
-.table-container {
-  overflow: auto;
+.header {
+    position: sticky;
+    width: 100%;
+    background-color: var(--gray-8);
+    height: 40px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-radius: 10px;
 }
 
 table {
@@ -62,11 +74,12 @@ table {
   border-collapse: collapse;
 }
 
-thead th {
+thead {
   padding-top: 20px;
-  background-color: #0d0d0d;
+  border-radius: 3px;
+  background-color: var(--gray-9);
   position: sticky;
-  top: 0;
+  top: 60px;
   z-index: 2; /* Ensure the header is above the table body */
 }
 
@@ -75,13 +88,23 @@ tr {
   height: 36px;
 }
 
+
+th:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+th:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px ;
+}
 .data:nth-child(odd) td:first-child {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
 .data:nth-child(even) {
-  background-color: #151515;
+  background-color: var(--gray-9);
 }
 
 .data:nth-child(even) td:first-child {
@@ -92,6 +115,31 @@ tr {
 .data:nth-child(even) td:last-child {
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+
+h1 {
+    margin-left: 30px;
+    float: left;
+}
+
+button {
+    float: right;
+    margin-right: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: var(--purple-8);
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover{
+    border:  1px solid #a0a0a0;
+    width: 35px;
+    height: 35px;
+    transition: 50ms;
 }
 </style>
 

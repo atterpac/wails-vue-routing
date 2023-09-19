@@ -29,6 +29,8 @@ func main() {
         Frameless:       true,
         CSSDragProperty: "widows",
         CSSDragValue:    "1",
+		// Color seen while refreshing or resizing
+		BackgroundColour:   &options.RGBA{R: 0, G: 0, B: 0, A: 255},
         Bind: []interface{}{
           app,
         },

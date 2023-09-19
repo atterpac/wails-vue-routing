@@ -8,25 +8,31 @@ import MaximizeIcon from '../../assets/svg/MaximizeIcon.vue';
 import MinimizeIcon from '../../assets/svg/MinimizeIcon.vue';
 import SpotlightIcon from '../../assets/svg/SpotlightIcon.vue';
 import CogIcon from '../../assets/svg/CogIcon.vue';
+import SideNavIcon from '../../assets/svg/SideNavIcon.vue'
 const search = ref("")
+
+const iconColor = ref<String>("var(--gray-3)")
 </script>
 
 <template>
-  <div class="header notselect">
+  <div class="header notselect" style="widows: 1;">
     <div class="left">
-        <div class="action"><CogIcon width="24px" height="24px" stroke="#adadad" fill="none" /> </div>
+        <div class="action"><CogIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none" /> </div>
+        <div class="action" @click="$emit('navCollapse')"><SideNavIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none" /> </div>
     </div>
-    <div class="search notselect">
+    <div class="search notselect" style="--wails-draggable:no-drag">
        <input class="search-bar notselect" placeholder="Search..." v-model="search"/>      
-       <SearchIcon width="24px" height="24px" stroke="#6d6d6d" fill="none"/>
-    </div>
+       <SearchIcon class="search-icon" width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none"/>
+    </div>   
     <div class="right">
-        <div class="action"> <SwatchIcon width="24px" height="24px" stroke="#adadad" fill="none" /> </div>
-       <div class="action"> <SpotlightIcon width="24px" height="24px" stroke="#adadad" fill="none" /> </div>
+        <div class="right-actions">
+            <div class="action"> <SwatchIcon width="24px" height="24px" :style="{ stroke: iconColor}" fill="none" /> </div>
+            <div class="action " @click="$emit('drawerCollapse')"> <SpotlightIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" /> </div>
+        </div>       
         <div class="window-actions">
-            <div class="action"><MinimizeIcon width="18px" height="18px" stroke="#adadad" fill="#adadad" /></div>
-            <div class="action"><MaximizeIcon width="18px" height="18px" stroke="#adadad" fill="adadad" /></div>
-            <div class="action"><CloseIcon width="18px" height="18px" stroke="#adadad" fill="adadad" /></div>
+            <div class="action"><MinimizeIcon width="18px" height="18px" :style="{ stroke: iconColor, fill: iconColor}" /></div>
+            <div class="action"><MaximizeIcon width="18px" height="18px" :style="{ stroke: iconColor}" /></div>
+            <div class="action cancel"><CloseIcon width="18px" height="18px" :style="{ stroke: iconColor, fill: iconColor}" /></div>
         </div>
     </div>
   </div>
@@ -42,12 +48,15 @@ const search = ref("")
   }
 
   .search-bar {
-    padding-left: 10px;
+    padding-left: 20px;
     padding-right: 10px;
     border: 2px none #838383;
-    background-color: #0d0d0d;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     justify-self: center;
+    background-color: var(--gray-a);
     height: 30px;
+    
     outline: none;
     width: 325px;
     color: #D3D3D3;
@@ -59,14 +68,16 @@ const search = ref("")
     align-items: center;
     border: 0.5px solid #232323;
     background-color: #0d0d0d;
-    border-radius: 5px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 .search:focus-within {
-    border: 2px solid #838383;
-    border-radius: 5px;
+    widows: 0;
+    border: 1.5px solid var(--purple-8);
+    border-radius: 10px;
+    background-color:var(--purple-8);
 }
-
 
 .right {
     flex: 1;
@@ -78,13 +89,19 @@ const search = ref("")
     justify-content: space-between;
 }
 
+.right-actions {
+    display: flex;
+    align-items: center;
+    margin-left: 20%;
+}
+
 .left {
     flex: 1;
     display: flex;
     height: 44px;
-    align-items: center;
+    align-items: left;
     margin-right: auto;
-    justify-content: space-between;
+    justify-content: left;
 }
 
 .window-actions {
@@ -109,7 +126,7 @@ const search = ref("")
     margin-right: -10px;
 }
 
-.right .action:last-child:hover {
+.right .cancel:last-child:hover {
     background-color: #b22222;
 }
 

@@ -4,19 +4,31 @@ import LeftDrawer from './components/layout/LeftDrawer.vue'
 import Header from './components/layout/Header.vue'
 import RightDrawer from './components/layout/RightDrawer.vue'
 import Footer from './components/layout/Footer.vue'
+import { ref } from 'vue';
+
+const isNavCollapse = ref<Boolean>(false)
+const isDrawerCollapse = ref<Boolean>(true)
+
+const toggleCollapse = () => {
+  isNavCollapse.value = !isNavCollapse.value
+}
+
+const toggleDrawer = () => {
+  isDrawerCollapse.value = !isDrawerCollapse.value
+}
 </script>
 
 <template>
 <div class="app">
-    <Header style="widows: 1"/>
+    <Header style="widows: 1" @navCollapse="toggleCollapse" @drawerCollapse="toggleDrawer"/>
     <div class="container noselect">
-        <LeftDrawer />
+        <LeftDrawer :isCollapse="isNavCollapse ? true : false"/>
         <div class="view-container noselect">
             <div class="routerview noselect">
               <router-view />
             </div>
         </div>
-        <RightDrawer v-if="false"/> 
+        <RightDrawer :isCollapse="isDrawerCollapse ? true : false"/> 
     </div>
     <Footer v-if="false"/>
 </div>
@@ -28,7 +40,7 @@ import Footer from './components/layout/Footer.vue'
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #151515;
+    background-color: var(--gray-9);
     position: absolute;
     top: 0;
     left: 0;
@@ -46,14 +58,15 @@ import Footer from './components/layout/Footer.vue'
 
   .view-container {
     flex: 1;
+    margin: 3px;
    }
 
   .routerview {
-    background-color: #0d0d0d; /* Adjust background color as needed */
+    background-color: var(--gray-8); /* Adjust background color as needed */
     border-radius: 8px;
-    border: 0.25px solid #131313;
+    border: 0.25px solid #242629;
     height: 97%;
-    margin: 8px;
+    margin: 10px 10px 10px 0px;
     align-items: stretch;
     display: flex;
     justify-content: space-between; /* Add space between left and right drawers */
