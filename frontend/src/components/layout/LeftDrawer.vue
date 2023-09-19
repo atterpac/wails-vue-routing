@@ -94,7 +94,7 @@ const navItems: NavItem[] = [
 
 ]
 
-const iconColor: Ref<String> = ref("var(--purple-4)")
+const iconColor: Ref<String> = ref("var(--primary-accent)")
 
 const isCollapse: Ref<boolean> = ref(true);
 // Resize 

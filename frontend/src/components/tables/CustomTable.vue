@@ -2,51 +2,63 @@
   <div class="cue-table">
     <div class="table-container" style="max-height: props.maxHeight + vh">
       <div class="header">
-            <h1>Cues</h1>
+            <h1>{{props.title}}</h1>
             <button>+</button>
           </div>
       <table>
       <thead>
           <tr>
-            <th>Cue</th>
-            <th>Part</th>
-            <th>Time</th>
-            <th>Delay</th>
-            <th>Hang</th>
-            <th>Follow</th>
-            <th>Block</th>
-            <th>Description</th>
-            <th>Placement</th>
-            <th>Scene ID</th>
-            <th>Notes</th>
+            <template v-for="column, idx in props.columns">
+              <th 
+                v-if="column.visible"
+                style="{width: column.width + 'px'}"  
+              >
+                  {{column.label}}
+              </th>
+          </template>
+            <th>
+              <CogIcon width="24px" height="24px" :style="{ stroke: 'var(--gray-4)', fill: 'var(--gray-4)'}" fill="none" />
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr class="data" v-for="cue in CueData" :key="cue.number">
-            <td>{{ cue.number }}</td>
-            <td>{{ cue.part }}</td>
-            <td>{{ cue.time }}</td>
-            <td>{{ cue.delay }}</td>
-            <td>{{ cue.hang }}</td>
-            <td>{{ cue.follow }}</td>
-            <td>{{ cue.block }}</td>
-            <td>{{ cue.description }}</td>
-            <td>{{ cue.placement }}</td>
-            <td>{{ cue.scene_id }}</td>
-            <td>{{ cue.notes }}</td>
+          <tr class="data" v-for="data, idx in tableData" :key="idx" >
+            <td v-for="value in dataKeys">
+              {{( data[value] )}}
+            </td>
+            <td class="options">
+              <OptionsIcon class="option-icon" width="24px" height="24px"/>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
+  </div> 
 </template>
 
 <script setup lang="ts">
-import { CueData } from './cuedata'
+import { Column } from './column';
+import { computed } from 'vue';
+import OptionsIcon from '../../assets/svg/OptionsIcon.vue'
+import CogIcon from '../../assets/svg/CogIcon.vue';
 
 const props = defineProps({
+    title: String,
     maxHeight: Number,
-    }) 
+    columns: {
+      type: Array<Column>,
+        required: true,
+    },
+    tableData: {
+      type: Array<any>,
+      required: true,
+    },
+}) 
+
+const dataKeys = computed(() => {
+  let keys = props.tableData[0] ? props.columns.filter((column) => column.visible === true).map((column) => column.data) : [];
+  return keys as string[];
+});
 </script>
 
 <style scoped>
@@ -59,13 +71,14 @@ const props = defineProps({
 .header {
     position: sticky;
     width: 100%;
-    background-color: var(--gray-8);
+    background-color: var(--bg-dark);
     height: 40px;
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 2;
-    border-radius: 10px;
+    border-radius: 5px;
+    margin-left: -5px;
 }
 
 table {
@@ -77,7 +90,7 @@ table {
 thead {
   padding-top: 20px;
   border-radius: 3px;
-  background-color: var(--gray-9);
+  background-color: var(--bg-darker);
   position: sticky;
   top: 60px;
   z-index: 2; /* Ensure the header is above the table body */
@@ -86,6 +99,8 @@ thead {
 tr {
   font-size: 16px;
   height: 36px;
+  font-weight: 500;
+  align-items: center;
 }
 
 
@@ -104,7 +119,7 @@ th:last-child {
 }
 
 .data:nth-child(even) {
-  background-color: var(--gray-9);
+  background-color: var(--bg-darker);
 }
 
 .data:nth-child(even) td:first-child {
@@ -130,7 +145,7 @@ button {
     height: 30px;
     font-size: 18px;
     font-weight: 700;
-    background-color: var(--purple-8);
+    background-color: var(--primary-accent);
     border: none;
     border-radius: 5px;
 }
@@ -140,6 +155,22 @@ button:hover{
     width: 35px;
     height: 35px;
     transition: 50ms;
+}
+
+.options {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.option-icon {
+  margin-bottom: -2px;
+  stroke: var(--gray-6);
+  fill: var(--gray-6);
+}
+
+.option-icon:hover {
+  stroke: var(--primary-accent);
+  fill: var(--primary-accent);
 }
 </style>
 

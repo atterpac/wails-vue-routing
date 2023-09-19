@@ -10,24 +10,37 @@ import SpotlightIcon from '../../assets/svg/SpotlightIcon.vue';
 import CogIcon from '../../assets/svg/CogIcon.vue';
 import SideNavIcon from '../../assets/svg/SideNavIcon.vue'
 const search = ref("")
+const spotlightClicked = ref<Boolean>(false)
+
+const emits = defineEmits(["drawerCollapse"])
+
+const spotlight = (e: Event) => {
+    emits('drawerCollapse')
+    const spotlightElement = document.querySelector('.spotlight')
+    if (spotlightElement?.classList.contains('active')) {
+        spotlightElement.classList.remove('active') 
+    } else {
+        spotlightElement?.classList.add('active')
+    }
+}
 
 const iconColor = ref<String>("var(--gray-3)")
 </script>
 
 <template>
-  <div class="header notselect" style="widows: 1;">
+  <div class="header noselect" style="widows: 1;">
     <div class="left">
         <div class="action"><CogIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none" /> </div>
         <div class="action" @click="$emit('navCollapse')"><SideNavIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none" /> </div>
     </div>
-    <div class="search notselect" style="--wails-draggable:no-drag">
+    <div class="search noselect" style="widows: 2">
        <input class="search-bar notselect" placeholder="Search..." v-model="search"/>      
        <SearchIcon class="search-icon" width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none"/>
     </div>   
     <div class="right">
         <div class="right-actions">
             <div class="action"> <SwatchIcon width="24px" height="24px" :style="{ stroke: iconColor}" fill="none" /> </div>
-            <div class="action " @click="$emit('drawerCollapse')"> <SpotlightIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" /> </div>
+            <div class="action spotlight " @click="spotlight"> <SpotlightIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" /> </div>
         </div>       
         <div class="window-actions">
             <div class="action"><MinimizeIcon width="18px" height="18px" :style="{ stroke: iconColor, fill: iconColor}" /></div>
@@ -49,12 +62,13 @@ const iconColor = ref<String>("var(--gray-3)")
 
   .search-bar {
     padding-left: 20px;
-    padding-right: 10px;
+    padding-right: 30px;
+    margin-left: 1px;
     border: 2px none #838383;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     justify-self: center;
-    background-color: var(--gray-a);
+    background-color: var(--gray-b);
     height: 30px;
     
     outline: none;
@@ -66,17 +80,17 @@ const iconColor = ref<String>("var(--gray-3)")
 .search {
     display: flex;
     align-items: center;
-    border: 0.5px solid #232323;
-    background-color: #0d0d0d;
+    border: 0.5px solid var(--gray-9);
+    background-color: var(--gray-c);
     border-radius: 10px;
     margin-top: 10px;
 }
 
 .search:focus-within {
     widows: 0;
-    border: 1.5px solid var(--purple-8);
+    border: 2px solid var(--primary-accent);
     border-radius: 10px;
-    background-color:var(--purple-8);
+    background-color:var(--primary-accent);
 }
 
 .right {
@@ -99,7 +113,7 @@ const iconColor = ref<String>("var(--gray-3)")
     flex: 1;
     display: flex;
     height: 44px;
-    align-items: left;
+    align-items: center;
     margin-right: auto;
     justify-content: left;
 }
@@ -115,7 +129,7 @@ const iconColor = ref<String>("var(--gray-3)")
 .action {
     width: 44px;
     height: 44px;
-    margin-top: 5px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,7 +145,12 @@ const iconColor = ref<String>("var(--gray-3)")
 }
 
 .action:hover{
-    background-color: #2d2d2d;
+    background-color: var(--gray-8)
+}
+
+.active {
+    border: 2px solid var(--primary-accent-dark);
+    background-color: var(--gray-8);
 }
 
 </style>

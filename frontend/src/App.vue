@@ -40,7 +40,7 @@ const toggleDrawer = () => {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: var(--gray-9);
+    background-color: var(--bg-darker);
     position: absolute;
     top: 0;
     left: 0;
@@ -58,15 +58,14 @@ const toggleDrawer = () => {
 
   .view-container {
     flex: 1;
-    margin: 3px;
    }
 
   .routerview {
-    background-color: var(--gray-8); /* Adjust background color as needed */
+    background-color: var(--bg-dark); /* Adjust background color as needed */
     border-radius: 8px;
     border: 0.25px solid #242629;
     height: 97%;
-    margin: 10px 10px 10px 0px;
+    margin: 10px 0px 10px 0px;
     align-items: stretch;
     display: flex;
     justify-content: space-between; /* Add space between left and right drawers */

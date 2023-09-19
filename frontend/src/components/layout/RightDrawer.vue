@@ -1,6 +1,6 @@
 <template>
 <div class="drawer-container" >
- <div class="drawer-right" :style="{ width: props.isCollapse ?  '1px' : '160px' }"> 
+ <div class="drawer-right" :style="{ width: props.isCollapse ?  '1px' : '240px' }"> 
     <p v-if="!props.isCollapse">Right Drawer</p>
  </div>
 </div>

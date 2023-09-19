@@ -1,3 +1,6 @@
+import { Ref, ref } from "vue"
+import { Column } from "../column"
+
 export type Cue = {
     id: string,
     number: number,
@@ -16,6 +19,85 @@ export type Cue = {
     scene_id?: string,
     notes?: string
 }
+
+export const CueColumns: Ref<Column[]> = ref([
+  {
+      width: 100,
+      data: "number",
+      label: "Cue",
+      visible: true
+  },{
+      width: 30,
+      data: "id",
+      label: "ID",
+      visible: false
+  },{
+      width: 30,
+      data: "part",
+      label: "Part",
+      visible: true
+  },{
+      width: 30,
+      data: "time",
+      label: "Time",
+      visible: true
+  },{
+      width: 30,
+      data: "delay",
+      label: "Delay",
+      visible: true
+  },{
+      width: 100,
+      data: "follow",
+      label: "Follow",
+      visible: true
+  },{
+      width: 100,
+      data: "hang",
+      label: "Hang",
+      visible: true
+  },{
+      width: 100,
+      data: "block",
+      label: "Block",
+      visible: true
+  },{
+      width: 100,
+      data: "description",
+      label: "Description",
+      visible: true
+  },{
+      width: 100,
+      data: "placement",
+      label: "Placement",
+      visible: true
+  },{
+      width: 100,
+      data: "page",
+      label: "Page",
+      visible: true
+  },{
+      width: 100,
+      data: "system",
+      label: "System",
+      visible: false
+  },{
+      width: 100,
+      data: "measure",
+      label: "Measure",
+      visible: true
+  },{
+      width: 100,
+      data: "scene_id",
+      label: "Scene",
+      visible: true
+  },{
+      width: 100,
+      data: "notes",
+      label: "Notes",
+      visible: true
+  },
+  ])
 
 export const CueData: Cue[] = [
   {

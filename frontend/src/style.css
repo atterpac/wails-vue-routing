@@ -16,7 +16,7 @@ body {
 @font-face {
     font-family: "Nunito";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     src: local(""),
     url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
 }
@@ -29,6 +29,12 @@ body {
 /* UI Colors Vars */
 
 :root {
+
+    --bg-dark: var(--gray-9);
+    --bg-darker: var(--gray-a);
+    --primary-accent: var(--teal-a);
+    --primary-accent-dark: var(--teal-b);
+
     /* Gray */
     --gray-0: #fafafa;
     --gray-1: #f5f5f5;
@@ -39,8 +45,10 @@ body {
     --gray-6: #757575;
     --gray-7: #616161;
     --gray-8: #353535;
-    --gray-9: #212121;
-    --gray-a: #111111;
+    --gray-9: #2b2b2b;
+    --gray-a: #222;
+    --gray-b: #191919;
+    --gray-c: #0f0f0f;
 
     /* Red */
     --red-0: #fff5f5;
@@ -53,6 +61,9 @@ body {
     --red-7: #f03e3e;
     --red-8: #e03131;
     --red-9: #c92a2a;
+    --red-a: #a60012;
+    --red-b: #830000;
+    --red-c: #630000;
     
     /* Pink  */
     --pink-0: #fff0f6;
@@ -65,6 +76,9 @@ body {
     --pink-7: #d6356c;
     --pink-8: #c2255c;
     --pink-9: #a61e4d;
+    --pink-a: #8b0038;
+    --pink-b: #700024;
+    --pink-c: #550011;
 
     /* Purple */
     --purple-0: #f8f0fc;
@@ -77,6 +91,9 @@ body {
     --purple-7: #ae3ec9;
     --purple-8: #9c36b5;
     --purple-9: #862e9c;
+    --purple-a: #6d1184;
+    --purple-b: #54006c;
+    --purple-c: #3c0055;
 
 
     /* Violet */
@@ -90,6 +107,9 @@ body {
     --violet-7: #7048e8;
     --violet-8: #6741d9;
     --violet-9: #5f3dc4;
+    --violet-a: #4226aa;
+    --violet-b: #210f90;
+    --violet-c: #000078;
 
      /* Indigo */
     --indigo-0: #edf2ff;
@@ -102,6 +122,9 @@ body {
     --indigo-7: #4263eb;
     --indigo-8: #3b5bdb;
     --indigo-9: #364fc7;
+    --indigo-a: #0039ac;
+    --indigo-b: #002592;
+    --indigo-c: #001378;
 
     /* Blue */
     --blue-0: #e7f5ff;
@@ -114,6 +137,9 @@ body {
     --blue-7: #1c7ed6;
     --blue-8: #1971c2;
     --blue-9: #1864ab;
+    --blue-a: #004c8f;
+    --blue-b: #003574;
+    --blue-c: #001f5a;
 
     /* Cyan */
     --cyan-0: #e3fafc;
@@ -126,6 +152,9 @@ body {
     --cyan-7: #1098ad;
     --cyan-8: #0c8599;
     --cyan-9: #0b7285;
+    --cyan-a: #005769;
+    --cyan-b: #003d4f;
+    --cyan-c: #002536;
 
     /* Teal */
     --teal-0: #e6fcf5;
@@ -138,6 +167,9 @@ body {
     --teal-7: #0ca678;
     --teal-8: #099268;
     --teal-9: #087f5b;
+    --teal-a: #00613f;
+    --teal-b: #004426;
+    --teal-c: #002a0d;
 
     /* Green */
     --green-0: #ebfbee;
@@ -150,6 +182,10 @@ body {
     --green-7: #37b24d;
     --green-8: #2f9e44;
     --green-9: #2b8a3e;
+    --green-a: #006920;
+    --green-b: #004a00;
+    --green-c: #002c00;
+
 
     /* Lime */
     --lime-0: #f4fce3;
@@ -162,6 +198,9 @@ body {
     --lime-7: #74b816;
     --lime-8: #66a80f;
     --lime-9: #5c940d;
+    --lime-a: #367000;
+    --lime-b: #0f4e00;
+    --lime-c: #082d00;
 
     /* Yellow */
     --yellow-0: #fff9db;
@@ -174,6 +213,9 @@ body {
     --yellow-7: #f59f00;
     --yellow-8: #f08c00;
     --yellow-9: #e67700;
+    --yellow-a: #b55000;
+    --yellow-b: #872900;
+    --yellow-c: #5e0000;
 
     /* Orange */
     --orange-1: #fff4e6;
@@ -185,14 +227,9 @@ body {
     --orange-7: #f76707;
     --orange-8: #e8590c;
     --orange-9: #d9480f;
+    --orange-a: #b02100;
+    --orange-b: #890000;
+    --orange-c: #650000;
 
-}
-
-/* Dark */
-
-.root {
-
-    --bg-color-stepup: var(--gray-9);
-    --bg-color-dark: var(--gray-9);
 
 }

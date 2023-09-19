@@ -2,7 +2,7 @@
 <section>
 
     <div class="table">
-        <Table :maxHeight=90 :columns="CueColumns" :tableData="CueData" title="Cues"/>
+        <Table :maxHeight=90 :columns="FixtureColumns" :tableData="FixtureData" title="Fixtures"/>
     </div>
 </section>
 </template>
@@ -11,7 +11,7 @@
 import { Ref, ref } from 'vue';
 import Table from '../components/tables/CustomTable.vue';
 import { Column } from '../components/tables/column';
-import { CueData, CueColumns } from '../components/tables/cues/cuedata';
+import { FixtureData, FixtureColumns } from '../components/tables/fixtures/fixtureData';
 
 </script>
 

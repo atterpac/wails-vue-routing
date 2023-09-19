@@ -5,11 +5,13 @@ import CueView from './views/CueView.vue'
 import LoginView from './views/auth/LoginView.vue'
 import RegisterView from './views/auth/RegisterView.vue'
 import PassResetView from './views/auth/PassResetView.vue'
+import FixtureView from './views/FixtureView.vue'
 
 const routes = [
     {path:"/", name:"Home" , component: HomeView },
     {path:"/dash", name:"Dashboard" , component: DashboardView},
     {path:"/cues", name:"Cues" , component: CueView },
+    {path:"/fixtures", name:"Fixtures" , component: FixtureView },
     {path:"/login", name:"Login" , component: LoginView },
     {path:"/register", name:"Register" , component: RegisterView },
     {path:"/reset", name:"PasswordReset" , component: PassResetView }
