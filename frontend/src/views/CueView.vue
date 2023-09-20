@@ -1,7 +1,6 @@
 <template>
-<section>
-
-    <div class="table">
+<section class="table-wrapper">
+    <div class="cue-table">
         <Table :maxHeight=90 :columns="CueColumns" :tableData="CueData" title="Cues"/>
     </div>
 </section>
@@ -53,7 +52,7 @@ button:hover{
     transition: 50ms;
 }
 
-.table {
+.cue-table {
     width: 97%;
 }
 

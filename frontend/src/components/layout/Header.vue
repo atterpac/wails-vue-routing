@@ -148,7 +148,7 @@ const iconColor = ref<String>("var(--gray-3)")
     background-color: var(--gray-8)
 }
 
-.active {
+.header-active {
     border: 2px solid var(--primary-accent-dark);
     background-color: var(--gray-8);
 }

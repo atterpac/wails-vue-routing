@@ -32,8 +32,8 @@ body {
 
     --bg-dark: var(--gray-9);
     --bg-darker: var(--gray-a);
-    --primary-accent: var(--teal-a);
-    --primary-accent-dark: var(--teal-b);
+    --primary-accent: var(--cyan-a);
+    --primary-accent-dark: var(--cyan-b);
 
     /* Gray */
     --gray-0: #fafafa;

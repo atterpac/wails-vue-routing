@@ -1,7 +1,7 @@
 <template>
-<section>
+<section class="table-wrapper">
 
-    <div class="table">
+    <div class="fixture-table">
         <Table :maxHeight=90 :columns="FixtureColumns" :tableData="FixtureData" title="Fixtures"/>
     </div>
 </section>
@@ -53,7 +53,7 @@ button:hover{
     transition: 50ms;
 }
 
-.table {
+.fixture-table {
     width: 97%;
 }
 
