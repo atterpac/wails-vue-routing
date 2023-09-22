@@ -1,3 +1,19 @@
+<template>
+<div class="app">
+    <Header style="widows: 1" @navCollapse="toggleCollapse" @drawerCollapse="toggleDrawer"/>
+    <div class="container noselect">
+        <LeftDrawer :isCollapse="isNavCollapse ? true : false"/>
+        <div class="view-container noselect">
+            <div class="routerview noselect">
+              <router-view />
+            </div>
+        </div>
+        <RightDrawer :isCollapse="isDrawerCollapse ? true : false"/> 
+    </div>
+    <Footer v-if="false"/>
+</div>
+</template>
+
 <script lang="ts" setup>
 import { RouterView } from 'vue-router';
 import LeftDrawer from './components/layout/LeftDrawer.vue'
@@ -17,22 +33,6 @@ const toggleDrawer = () => {
   isDrawerCollapse.value = !isDrawerCollapse.value
 }
 </script>
-
-<template>
-<div class="app">
-    <Header style="widows: 1" @navCollapse="toggleCollapse" @drawerCollapse="toggleDrawer"/>
-    <div class="container noselect">
-        <LeftDrawer :isCollapse="isNavCollapse ? true : false"/>
-        <div class="view-container noselect">
-            <div class="routerview noselect">
-              <router-view />
-            </div>
-        </div>
-        <RightDrawer :isCollapse="isDrawerCollapse ? true : false"/> 
-    </div>
-    <Footer v-if="false"/>
-</div>
-</template>
 
 <style>
   .app {
@@ -61,14 +61,14 @@ const toggleDrawer = () => {
    }
 
   .routerview {
-    background-color: var(--bg-dark); /* Adjust background color as needed */
+    background-color: var(--bg-dark);
     border-radius: 8px;
     border: 0.25px solid #242629;
     height: 97%;
     margin: 10px 0px 10px 0px;
     align-items: stretch;
     display: flex;
-    justify-content: space-between; /* Add space between left and right drawers */
+    justify-content: space-between; 
     box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2);
   }
 </style>

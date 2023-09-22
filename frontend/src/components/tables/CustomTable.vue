@@ -8,10 +8,11 @@
       <table>
       <thead>
           <tr class="table-head">
-            <template v-for="column, idx in props.columns">
+            <template v-for="column in props.columns">
               <th 
                 v-if="column.visible"
                 style="{width: column.width + 'px'}"  
+                :data-col=column.data
               >
                   {{column.label}}
               </th>
@@ -23,11 +24,21 @@
         </thead>
         <tbody>
           <tr class="data" v-for="data, idx in tableData" :key="idx"  :data-row="idx">
-            <td class="data-cell" v-for="value in dataKeys" :data-col="value" :data-row="idx" @click="clickedInput">
+            <td class="data-cell" 
+                v-for="value in dataKeys" 
+                :data-col="value" 
+                :data-row="idx" 
+                :data-selected="false" 
+                @click="clickedInput"
+            >
               {{( data[value] )}}
             </td>
-            <td class="options" @click="clickedOptions" data-col="actions" :data-row="idx">
-              <OptionsIcon class="option-icon" width="24px" height="24px"/>
+            <td class="options" 
+                @click="clickedOptions" 
+                data-col="actions" 
+                :data-row="idx"
+            >
+              <OptionsIcon :data-row="idx" class="option-icon" width="24px" height="24px"/>
             </td>
           </tr>
         </tbody>
@@ -37,7 +48,7 @@
       I am floating box
     </div>
     <div class="input-box" v-if="isInputShown" :style="{top: inputPosition.y, left: inputPosition.x, width: inputPosition.width, height: inputPosition.height}">
-      <input v-model="inputData" class="floating-input"/>
+        <input v-model="inputData" class="floating-input" id="cell-input"/>
     </div>
   </div> 
 </template>
@@ -47,7 +58,7 @@ import { Column } from './column';
 import { computed, ref } from 'vue';
 import OptionsIcon from '../../assets/svg/OptionsIcon.vue'
 import CogIcon from '../../assets/svg/CogIcon.vue';
-import { is, isOpaqueType } from '@babel/types';
+
 
 const props = defineProps({
     title: String,
@@ -62,68 +73,139 @@ const props = defineProps({
     },
 }) 
 
+type Position = {
+    x: string,
+    y: string,
+    top?: string,
+    left?: string,
+    right?: string,
+    bottom?: string,
+    width?: string,
+    height?: string,
+}
+
+type Adjustment = {
+    x: number,
+    y: number,
+}
+
 const isOptionShown = ref(false)
 
-const optionPosition = ref({
+const optionPosition = ref<Position>({
     x: '0px',
     y: '0px'
 })
 
+let isClicked = false
 const clickedOptions = (event: Event) => {
-  isOptionShown.value = true;
+  // Grab necessary data from event
   const target = event.target as HTMLElement
   const el = target.parentElement as HTMLElement
-  const position = parseFloat(el.getAttribute('data-row') as string)
-  // Query data-col actions for nth child of row
-  const query = `tr:nth-child(${position+1})`
-  const row = document.querySelector(query)
-  row?.querySelector('.option-icon')?.classList.add('active')
-  
-  console.log(query)
-  const coords = el.getBoundingClientRect();
-  console.log(coords, isOptionShown.value)
+  const wrapper = document.querySelector('.table-wrapper') as HTMLElement
+  if (!wrapper) {
+    console.log("Wrapper could not be found");
+    return
+  }
 
-  const shiftX = coords.x - 150;
-  const shiftY = coords.y 
-  optionPosition.value.x = `${shiftX}px`
-  optionPosition.value.y = `${shiftY}px`
+  // Query data-row actions for nth child of row
+  const position = parseFloat(el.getAttribute('data-row') as string) // Get data-row attribute from parent element
+  const row = document.querySelector(`tr:nth-child(${position+1})`) as HTMLElement
+  if (!row) {
+    console.log("Error finding row position");
+    return
+  }
+  row.querySelector('.option-icon')?.classList.add('active')
 
-  // Check if there is a click outside of the option box
-  document.addEventListener('click', (event) => {
-    const el = event.target as HTMLElement
-    if (el.classList.contains('option-icon')) {
-      return
+  // Shift Option panels position to match the clicked element with an X offset
+  const bounds = el.getBoundingClientRect();
+  optionPosition.value.x =  `${bounds.x - 150}px`
+  optionPosition.value.y =  `${bounds.y - 10}px`
+  isOptionShown.value = true;
+
+ // Click Listener Setup
+  const watchClickListener = () => {
+     clickListener(el);
+  }
+
+  const clickListener = (el: HTMLElement) => {
+    if (!isClicked) { // Check if this is the first click or not so it doesnt automatically trigger the remove
+        isClicked = true
+        isOptionShown.value = true;
+    } else {
+        if (el.classList.contains('.option-box')) {
+          return
+        }
+        document.removeEventListener('click', watchClickListener)
+        isOptionShown.value = false;
+        isClicked = false;
+        row.querySelector('.option-icon')?.classList.remove('active')
     }
-    document.removeEventListener('click', () => {
-      console.log('removed')
-    })
-    isOptionShown.value = false;
-    row?.querySelector('.option-icon')?.classList.remove('active')
+  }
 
-  }) 
+// Attach Listener
+  document.addEventListener('click', watchClickListener)
 
-  document.querySelector('.table-wrapper')?.addEventListener('scroll', () => {
-    console.log('scrolling')
-    const coords = el.getBoundingClientRect();
-    const boundry = document.querySelector('.table-wrapper')?.getBoundingClientRect();
-    console.log(coords, boundry)
-    if (boundry && ((boundry.top+100) > coords.top || (boundry.bottom) < coords.bottom)) {
+// Scroll Listener Setup
+  const watchScrollFunction = () => {
+    watchScroll(el,row, wrapper)
+  }
+
+  const watchScroll = (el: HTMLElement, row: HTMLElement, wrapper: HTMLElement) => {
+    const boundry = wrapper.getBoundingClientRect();
+    const pastBoundry = isPastBoundry(el, boundry, watchScrollFunction, wrapper)
+    if (pastBoundry) {
       isOptionShown.value = false;
       row?.querySelector('.option-icon')?.classList.remove('active')
       return
     } 
-    const shiftX = coords.x - 150
-    const shiftY = coords.y - 1
-    optionPosition.value.x = `${shiftX}px`
-    optionPosition.value.y = `${shiftY}px`
-  })
+    const currentPos = optionPosition.value as Position;
+    shiftPosition(el, currentPos, 150, 1);
+  }
+  
+// Attach Scroll Listener
+  wrapper.addEventListener('scroll', watchScrollFunction, false);
+}
+
+const shiftPosition = (match: HTMLElement, element: Position, xShift?: number, yShift?: number, matchPosition?: boolean  ) => {
+    console.log("Shifting Position");
+    const coords = match.getBoundingClientRect();
+    element.x = `${(coords.x - (xShift ? xShift : 0))}px`;
+    element.y = `${(coords.y - (yShift ? yShift : 0))}px`;
+    if (matchPosition) {
+        element.width = `${coords.width}px`
+        element.height = `${coords.height}px`
+    }
+    
+}
+
+const RemoveListener = (el: HTMLElement, event: string, listenFunc: EventListener) => {
+    el.removeEventListener(event, listenFunc)
+}
+
+const isPastBoundry = (el: HTMLElement, boundry: DOMRect, listenFunc: EventListener, listenEl: HTMLElement) => {
+    const cords = el.getBoundingClientRect();
+    if (boundry.top && (boundry.top > cords.top || boundry.bottom < cords.bottom)) {
+      RemoveListener(listenEl,'scroll', listenFunc)
+      isInputShown.value = false;
+      return true
+    }
+    return false
+} 
+
+const watchScroll = (el: HTMLElement, boundryEl: HTMLElement, listenFunc: EventListener, position: Position, adjustment?: Adjustment) => {
+    const coords = el.getBoundingClientRect();
+    const limit = boundryEl.getBoundingClientRect();
+
+    isPastBoundry(el, limit, listenFunc, boundryEl)
+    position.x = `${coords.x - (adjustment ? adjustment.x : 0)}px`
+    position.y = `${(coords.y - (adjustment ? adjustment.y : 0))}px`
 }
 
 const isInputShown = ref(false)
 
 const inputData = ref('')
 
-const inputPosition = ref({
+const inputPosition = ref<Position>({
     x: '0px',
     y: '0px',
     width: '0px',
@@ -131,80 +213,63 @@ const inputPosition = ref({
 })
 
 
+let isInputClicked = false
 const clickedInput = (event: Event) => {
- 
-  isInputShown.value = true;
   const el = event.target as HTMLElement
-
-  const position = parseFloat(el.getAttribute('data-row') as string)
   inputData.value = el.innerText
-  // Change coords to computed
-  const coords = el.getBoundingClientRect();
+    
+  const bounds = el.getBoundingClientRect();
+  inputPosition.value.x = `${bounds.x}px`;
+  inputPosition.value.y = `${bounds.y}px`;
+  inputPosition.value.width = `${bounds.width}px`;
+  inputPosition.value.height = `${bounds.height}px`;
+  isInputShown.value = true;
+ //Scroll
+  const watchScrollFunction = () => {
+    watchScroll(el, wrapper, watchScrollFunction, inputPosition.value)
+  }
+ 
+  // Grab wrapper and ensure it exists (although it always should)
+  const wrapper = document.querySelector('.table-wrapper') as HTMLElement
+  if (!wrapper) {
+    console.log("No boundry found")
+    return
+  }
 
-  // const coords = el.getBoundingClientRect();
-  console.log(el, coords, isInputShown.value)
-  const shiftX = coords.x 
-  const shiftY = coords.y - 1
-  const shiftWidth = coords.width 
-  const shiftHeight = coords.height
-  inputPosition.value.x = `${shiftX}px`
-  inputPosition.value.y = `${shiftY}px`
-  inputPosition.value.width = `${shiftWidth}px`
-  inputPosition.value.height = `${shiftHeight}px`
-  // focus on input
-
-  // Add Scroll listener to update inputPosition based on elements new position
-  document.querySelector('.table-wrapper')?.addEventListener('scroll', () => {
-    console.log('scrolling')
-    const coords = el.getBoundingClientRect();
-    const boundry = document.querySelector('.table-wrapper')?.getBoundingClientRect();
-    console.log(coords, boundry)
-    if (boundry?.top && 
-        (boundry?.top > coords.top ||
-        boundry?.bottom < coords.bottom)) {
-      isInputShown.value = false;
-      return
-    } else {
-      isInputShown.value = true;
-    } 
-    const shiftX = coords.x
-    const shiftY = coords.y - 1
-    inputPosition.value.x = `${shiftX}px`
-    inputPosition.value.y = `${shiftY}px`
-  })
+  // Attach scroll listener
+  wrapper.addEventListener('scroll', watchScrollFunction, false )
 
 
-  // // Change inner HTML to input data when enter is hit
-  // textInput.addEventListener('keyup', (event) => {
-  //   console.log("Submitted")
-  //   if ((event.key === 'enter' || event.key === 'Escape')&& el) {
-  //     console.log("Submitted")
-  //     el.innerText = input.value
-  //     isInputShown.value = false;
-  //     input.removeEventListener('keyup', () => {
-  //       console.log('removed')
-  //     })
-  //   }
-  // })
+  //Click
+  const watchClickFunction = () => {
+    watchClick(el)
+  }
 
 
-  // Check if there is a click outside of the option box
-  document.addEventListener('click', (event) => {
-    const el = event.target as HTMLElement
-    console.log("clicked", el.classList)
-    if (el.classList.contains('.floating-input')) {
+  const watchClick = (el: HTMLElement) => {
+    isInputShown.value = true;
+    if (el.classList.contains('input-float')) {
       return
     }
-    document.removeEventListener('click', () => {
+    if (isInputClicked) {
+      document.removeEventListener('click', watchClickFunction, false)
       isInputShown.value = false;
-      console.log('removed')
-      
-    })
-  }) 
-}
+      isInputClicked = false;
+      return
+    } else {
+      document.addEventListener('click', watchClickFunction, false);
+      isInputClicked = true;
+    }
+  }
 
-const toggleOption = () => {
-    isOptionShown.value = !isOptionShown.value
+  
+  document.querySelector('.floating-input')?.addEventListener('blur', () => {
+    if (isInputClicked) {
+      document.removeEventListener('click', watchClickFunction, false);
+      isInputClicked = false;
+    }
+  });
+
 }
 
 const dataKeys = computed(() => {
@@ -348,11 +413,10 @@ button:hover{
 
 .input-box {
   background-color: var(--bg-darker);
-  border: 2px solid var(--primary-accent-dark);
-  box-shadow: 0px 0px 8px 0px var(--primary-accent-dark);
+  border: 0.5px solid var(--primary-accent-dark);
   position: absolute;
   z-index: 1;
-  border-radius: 8px;
+  border-radius: 2px;
   align-items: center;
   justify-content: center;
 }
@@ -368,6 +432,12 @@ button:hover{
   outline: none;
   text-align: center;
   color: var(--gray-4);
+}
+.input-box:focus-within {
+  border: 1.5px solid var(--primary-accent-dark);
+  box-shadow: 0px 0px 8px 0px var(--primary-accent-dark);
+  border-radius: 5px;
+  margin-top: -1.5px;
 }
 </style>
 
