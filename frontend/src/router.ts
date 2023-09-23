@@ -9,7 +9,7 @@ import FixtureView from './views/FixtureView.vue'
 import FollowSpotView from './views/FollowspotView.vue'
 
 const routes = [
-    {path:"/", name:"Home" , component: HomeView },
+    {path:"/", name:"Home" , component: DashboardView },
     {path:"/dash", name:"Dashboard" , component: DashboardView},
     {path:"/cues", name:"Cues" , component: CueView },
     {path:"/fixtures", name:"Fixtures" , component: FixtureView },

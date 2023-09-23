@@ -13,7 +13,7 @@
         ry="8.846191"
         transform="matrix(.899449 0 0 0.880634 12 12.286276)" 
         :fill="props.beam_color"
-        fill-opacity="0.1"
+        fill-opacity="0.3"
         stroke-width="0" />
     <ellipse 
         v-if="props.beam_size == `wide`"
@@ -22,7 +22,8 @@
         ry="8.846191"
         transform="matrix(1.356513 0 0 1.289325 12.000027 12.002316)" 
         :fill="props.beam_color"
-        fill-opacity="0.1" stroke-width="0" />
+        fill-opacity="0.3"
+        stroke-width="0" />
     <ellipse 
         v-if="props.beam_size == `full-body`"
         id="full-body" 
@@ -30,7 +31,7 @@
         ry="8.846191"
         transform="translate(11.936184 11.94076)" 
         :fill="props.beam_color"
-        fill-opacity="0.1" 
+        fill-opacity="0.3"
         stroke-width="0" 
     />
     <ellipse 
@@ -40,7 +41,7 @@
         ry="8.846191"
         transform="matrix(.802725 0 0 0.762962 12.000001 10.270529)" 
         :fill="props.beam_color"
-        fill-opacity="0.1" 
+        fill-opacity="0.3"
         stroke-width="0" 
     />
     <ellipse 
@@ -50,7 +51,7 @@
         ry="8.846191"
         transform="matrix(.652469 0 0 0.620605 11.999999 9.011211)" 
         :fill="props.beam_color"
-        fill-opacity="0.1" 
+        fill-opacity="0.3"
         stroke-width="0" 
     />
     <ellipse
@@ -60,7 +61,7 @@
         ry="8.846191"
         transform="matrix(.452944 0 0 0.430502 11.999997 7.249285)" 
         :fill="props.beam_color"
-        fill-opacity="0.1" 
+        fill-opacity="0.3"
         stroke-width="0" />
     <ellipse 
         v-if="props.beam_size == `headshot`"
@@ -69,7 +70,8 @@
         ry="8.846191"
         transform="matrix(.268324 0 0 0.271073 11.999997 5.919184)" 
         :fill="props.beam_color"
-        fill-opacity="0.1" />
+        fill-opacity="0.3"
+        />
 </svg>
 </template>
     
