@@ -22,9 +22,11 @@
         <div class='bottom'>
             <div class='time'>
                 <TimerIcon class='data-icon' width='48px' height='48px' stroke='var(--gray-7)' fill='var(--gray-b)'/>
+                <p>5s</p>
             </div>
             <div class='focus'>
-                <PersonIcon class='data-icon' width='48px' height='48px' stroke='var(--gray-7)' fill='var(--gray-b)'/>
+                <PersonIcon class='data-icon' beam_color="#e19214" :beam_size="beam_size" width='64px' height='64px' stroke='var(--gray-7)' fill='var(--gray-b)' />
+                <p>{{beam_size}}</p>
             </div>
             <div class='focus'>
                 I am Gel Frame
@@ -39,11 +41,15 @@ import RightArrowIcon from '../../assets/svg/RightArrow.vue'
 import InfoIcon from '../../assets/svg/InfoIcon.vue'
 import TimerIcon from '../../assets/svg/TimerIcon.vue'
 import PersonIcon from '../../assets/svg/PersonIcon.vue'
+
+const beam_size = '3-4'
 </script>
 
 <style scoped>
 .fs-cue {
     min-width: 400px;
+    min-height: 250px;
+    max-width: 500px;
     width: 33%;
     height: 25%;
     background-color: var(--gray-a);
@@ -90,8 +96,9 @@ import PersonIcon from '../../assets/svg/PersonIcon.vue'
 }
 
 .data > input {
-    height: 36px;
-    background-color: var(--gray-b);
+    height: 24px;
+    background-color: var(--gray-a);
+
     border: 1px solid var(--gray-8);
     border-radius: 8px;
     text-align: center;
@@ -106,5 +113,15 @@ import PersonIcon from '../../assets/svg/PersonIcon.vue'
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.focus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p {
+    margin-top: -3px;
 }
 </style>
