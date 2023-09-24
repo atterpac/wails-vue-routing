@@ -38,8 +38,15 @@ const followspots: followspot[] = [
 
 .followspot-view {
     width: 100%;
+    height: 100%;
     display: flex;
+    overflow: hidden;
     flex-direction: row;
     justify-content: space-around;
+    align-content: center;
+}
+
+.followspot {
+    width: 33%;
 }
 </style>

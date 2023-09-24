@@ -1,8 +1,18 @@
 <template>
     <div class='frame-wrapper'>
         <div class='frames'>
-            <div class="frame" :id='frame.id' v-for="frame in frames" :style="{backgroundColor: frame.color}" @click='selectFrame(frame)'>
-                {{frame.id}}
+            <div class="frame" 
+                :id='frame.id' 
+                v-for="frame in frames" 
+                :style="{backgroundColor: frame.color}" 
+                @click='selectFrame(frame)' 
+                @mouseover='showSpan' 
+                @mouseleave='hideSpan'>
+
+                <div class='frame-label'>
+                    <a>{{frame.id}}</a> 
+                    <a v-if='frame.hovered'>{{frame.label}}</a>
+                </div>
             </div>
         </div>
         <div>
@@ -12,23 +22,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, Ref } from 'vue'
 
 type SpotFrames = {
-    id: number,
+    id: string,
     label: string,
     color: string,
+    hovered?: boolean
 }
 
 const activeFrame = ref("Open")
 
-const frames: SpotFrames[] = [
-{id: 1, label: "Red", color: "red"},
-{id: 2, label: "Blue", color: "blue"},
-{id: 3, label: "Green", color: "green"},
-{id: 4, label: "Yellow", color: "yellow"},
-{id: 5, label: "Purple", color: "purple"},
-]
+
+
+const frames: Ref<SpotFrames[]> = ref([
+{id: "0", label: "Open", color: "", hovered: true},
+{id: "1", label: "Red", color: "red", hovered: false},
+{id: "2", label: "Blue", color: "blue", hovered: false},
+{id: "3", label: "Green", color: "green", hovered: false},
+{id: "4", label: "Yellow", color: "yellow", hovered: false},
+{id: "5", label: "Purple", color: "purple", hovered: false},
+
+])
 
 const selectFrame = (frame: SpotFrames) => {
     const frames = document.querySelectorAll('.frame')
@@ -43,6 +58,27 @@ const selectFrame = (frame: SpotFrames) => {
     }
     console.log(frame)
 }
+
+const hovered = ref(false);
+
+const showSpan = (e: Event) => {
+// Get ID of target and set hovered to true
+    const id = (e.target as HTMLElement).id
+    for (let i = 0; i < frames.value.length; i++) {
+        if (frames.value[i].id == id) {
+            frames.value[i].hovered = true
+        }
+        }
+};
+
+const hideSpan = (e: Event) => {
+    const id = (e.target as HTMLElement).id
+    for (let i = 0; i < frames.value.length; i++) {
+        if (frames.value[i].id == id) {
+            frames.value[i].hovered = false
+        }
+    }
+};
 </script>
 
 <style scoped>
@@ -55,7 +91,7 @@ const selectFrame = (frame: SpotFrames) => {
 }
 
 .frames {
-    width: 150px;
+    width: 200px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -66,7 +102,7 @@ const selectFrame = (frame: SpotFrames) => {
     width: 20px;
     height: 60px;
     flex: 1;
-    margin: 5px;
+    margin: 2px;
     border: 1px solid var(--gray-8);
     display: flex;
     align-items: center;
@@ -75,17 +111,29 @@ const selectFrame = (frame: SpotFrames) => {
     opacity: 0.1;
 }
 
+.frame-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+    margin: 5px;
+}
 .frame.active {
     opacity: 1;
     flex: 6;
-    border: 2px solid var(--primary-accent);
+    border: 2px solid var(--gray-4);
     margin: 3px;
 }
 
 .frame:hover {
-    flex: 6;
-    border-color: var(--primary-accent);
+    flex: 8;
+    width: 50px;
     opacity: 1;
+      /* Animation */
+    transition: flex 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: scale(1.5);
 }
 
 p {

@@ -25,7 +25,7 @@
                 <input type="number" placeholder="0s" />
             </div>
             <div class='focus'>
-                <PersonIcon class='data-icon' beam_color="#e3b024" :beam_size="beam_size" width='64px' height='64px' stroke='var(--gray-7)' fill='var(--gray-b)' />
+                <PersonIcon class='data-icon' beam_color="#e3b024" :beam_size="beam_size" width='72px' height='72px' stroke='var(--gray-7)' fill='var(--gray-b)' />
                 <Dropdown class='dropdown' :options="DropdownItems" @item='updateSelection' />
             </div>
             <div class='focus'>
@@ -71,11 +71,8 @@ const updateSelection = (item: string) => {
 
 <style scoped>
 .fs-cue {
-    min-width: 400px;
-    min-height: 250px;
-    max-width: 800px;
-    width: 100%;
-    height: 25%;
+    height: 250px; 
+    width: clamp(200px, 500px, 1000px);
     background-color: var(--gray-a);
     border-radius: 10px;
     margin: 20px;

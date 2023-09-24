@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@melloware/coloris": "^0.21.1",
     "vue": "^3.2.37",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "vue3-colorpicker": "^2.2.2"
   },
   "devDependencies": {
     "@babel/types": "^7.18.10",

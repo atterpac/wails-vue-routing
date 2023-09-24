@@ -7,8 +7,8 @@
             <div class="routerview noselect">
               <router-view />
             </div>
+            <RightDrawer class='right-drawer' :isCollapse="isDrawerCollapse ? true : false" v-if="!isDrawerCollapse"/> 
         </div>
-        <RightDrawer :isCollapse="isDrawerCollapse ? true : false"/> 
     </div>
     <Footer v-if="false"/>
 </div>
@@ -22,7 +22,7 @@ import RightDrawer from './components/layout/RightDrawer.vue'
 import Footer from './components/layout/Footer.vue'
 import { ref } from 'vue';
 
-const isNavCollapse = ref<Boolean>(false)
+const isNavCollapse = ref<Boolean>(true)
 const isDrawerCollapse = ref<Boolean>(true)
 
 const toggleCollapse = () => {
@@ -58,17 +58,40 @@ const toggleDrawer = () => {
 
   .view-container {
     flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
    }
 
   .routerview {
     background-color: var(--bg-dark);
+    padding: 10px;
     border-radius: 8px;
     border: 0.25px solid #242629;
-    height: 97%;
-    margin: 10px 0px 10px 0px;
-    align-items: stretch;
+    height: clamp(80vh, 90vh, 95vh);
+    width: clamp(40vw, 94vw, 95vw);
+    margin: 10px 10px 10px 0px;
     display: flex;
-    justify-content: space-between; 
+    flex: 5;
     box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    overflow: hidden;
   }
+
+
+  .right-drawer {
+
+  width: 100%;
+  max-width: 300px;
+  background-color: var(--bg-darker);
+  border-radius: 8px;
+  height: 100%;
+  margin: 0px 10px 0px 10px;
+  align-items: stretch;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2); 
+  }
+
 </style>
