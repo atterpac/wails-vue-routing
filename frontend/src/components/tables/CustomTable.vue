@@ -34,11 +34,15 @@
               {{( data[value] )}}
             </td>
             <td class="options" 
-                @click="clickedOptions" 
                 data-col="actions" 
                 :data-row="idx"
             >
-              <OptionsIcon :data-row="idx" class="option-icon" width="24px" height="24px"/>
+              <OptionsIcon 
+                @click="clickedOptions" 
+                :data-row="idx" 
+                class="option-icon" 
+                width="24px" 
+                height="24px"/>
             </td>
           </tr>
         </tbody>

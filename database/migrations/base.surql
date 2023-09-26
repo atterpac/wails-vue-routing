@@ -1,0 +1,3 @@
+DEFINE NAMESPACE yagami;
+
+DEFINE DATABASE yagami;

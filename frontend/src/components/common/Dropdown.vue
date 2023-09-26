@@ -2,7 +2,7 @@
     <div class="select" tabindex="1" :style='{width: props.width, height: props.height}'>
         <div v-for='option in options' @click="$emit('item', option.value)">
           <input class="selectopt" name="dropdown" type="radio" :id='option.value' :checked='option.checked'>
-          <label :for="option.value" :id="option.value" class="option" @click='setChecked'>{{option.label}}</label>
+          <label :for="option.value" :id="option.value" class="option" @click='setChecked' :style='{background: props.bg}'>{{option.label}}</label>
         </div>
     </div>
 </template>
@@ -26,7 +26,7 @@ const props = defineProps({
     },
     height: {
         type: String,
-        default: '20px'
+        default: '30px'
     }
 })
 
@@ -37,6 +37,9 @@ const options = ref(props.options)
 const setChecked = (e: Event) => {
     let checked = e.target as HTMLElement 
     console.log(checked.id)
+    if (options.value == undefined) {
+        return
+    }
     for (let i = 0; i < options.value.length; i++) {
         if (options.value[i].value == checked.id) {
             console.log("checked", options.value[i].value)
@@ -56,26 +59,26 @@ const setChecked = (e: Event) => {
   text-align: center;
   flex-direction: column;
   position:relative;
-  width:100px;
-  height:20px;
+  height: 24px;
+  width:75px;
   border-radius: 5px;
+  border: 2px solid var(--gray-b);
   padding-bottom: 5px;
 }
 
 .select:hover {
-    border: 2px solid var(--gray-8);
+    border: 2px solid var(--primary-accent);
 }
 
 .option {
-  padding:0 10px 0 10px;
-  min-height:20px;
+  padding:5px 5px 5px 5px;
+  height: 30px;
   text-align: center;
   display:flex;
-  align-items:center;
+  align-self:center;
   justify-content:center;
   text-align: center;
-  background:var(--gray-a);
-  border-top:#222 solid 1px;
+  background:var(--gray-b);
   position:absolute;
   top:0;
   width: 100%;

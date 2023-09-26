@@ -10,7 +10,7 @@ import FollowSpotSetup from "../components/followspot/FollowSpotSetup.vue"
 .view {
     width: 100%;
     height: 100%;
-    background-color: var(--gray-9);
+    background-color: var(--bg-dark);
     display: flex;
     align-items: center;
     overflow: hidden;

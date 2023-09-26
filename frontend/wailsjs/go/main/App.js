@@ -5,3 +5,11 @@
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
+
+export function Migration() {
+  return window['go']['main']['App']['Migration']();
+}
+
+export function SurrealSignin(arg1, arg2) {
+  return window['go']['main']['App']['SurrealSignin'](arg1, arg2);
+}

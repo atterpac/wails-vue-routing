@@ -38,10 +38,10 @@ body {
 
 :root {
 
-    --bg-dark: var(--gray-9);
-    --bg-darker: var(--gray-a);
-    --primary-accent: var(--cyan-a);
-    --primary-accent-dark: var(--cyan-b);
+    --bg-dark: var(--gray-a);
+    --bg-darker: var(--gray-c);
+    --primary-accent: var(--teal-9);
+    --primary-accent-dark: var(--teal-9);
 
     /* Gray */
     --gray-0: #fafafa;

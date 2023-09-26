@@ -3,12 +3,10 @@
     <Header style="widows: 1" @navCollapse="toggleCollapse" @drawerCollapse="toggleDrawer"/>
     <div class="container noselect">
         <LeftDrawer :isCollapse="isNavCollapse ? true : false"/>
-        <div class="view-container noselect">
             <div class="routerview noselect">
               <router-view />
             </div>
-            <RightDrawer class='right-drawer' :isCollapse="isDrawerCollapse ? true : false" v-if="!isDrawerCollapse"/> 
-        </div>
+        <RightDrawer class='right-drawer' :isCollapse="isDrawerCollapse ? true : false" v-if="!isDrawerCollapse"/> 
     </div>
     <Footer v-if="false"/>
 </div>
@@ -35,7 +33,7 @@ const toggleDrawer = () => {
 </script>
 
 <style>
-  .app {
+.app {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -45,53 +43,41 @@ const toggleDrawer = () => {
     top: 0;
     left: 0;
     color: #D3D3D3;
-  }
+}
 
 
-  .container {
+.container {
     flex: 1; /* Grow and shrink container */
     display: flex;
     justify-content: space-between; /* Add space between left and right drawers and routerview */
     flex-direction: row;
     overflow: hidden;
-  }
+}
 
-  .view-container {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-   }
-
-  .routerview {
+.routerview {
     background-color: var(--bg-dark);
     padding: 10px;
     border-radius: 8px;
     border: 0.25px solid #242629;
-    height: clamp(80vh, 90vh, 95vh);
-    width: clamp(40vw, 94vw, 95vw);
     margin: 10px 10px 10px 0px;
     display: flex;
     flex: 5;
     box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2);
     min-width: 300px;
     overflow: hidden;
-  }
+}
 
-
-  .right-drawer {
-
-  width: 100%;
-  max-width: 300px;
-  background-color: var(--bg-darker);
-  border-radius: 8px;
-  height: 100%;
-  margin: 0px 10px 0px 10px;
-  align-items: stretch;
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2); 
-  }
-
+.right-drawer {
+    width: 100%;
+    max-width: 300px;
+    background-color: var(--bg-darker);
+    border-radius: 8px;
+    height: 100%;
+    margin: 0px 10px 0px 10px;
+    align-items: stretch;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2); 
+}
 </style>

@@ -3,12 +3,9 @@
         <div class='top'>
             <div class='cue-icon'>
                 <img class='shrek' src="https://t.ly/r56Sf"/>
+                <input type='text' placeholder="Target" />
             </div>
             <div class='info'>
-                <div class='data'>
-                    <TargetIcon class='data-icon' width='24px' height='24px' stroke='var(--primary-accent)'/>
-                    <input type='text' placeholder="Target" />
-                </div>
                 <div class='data'>
                     <InfoIcon class='data-icon' width='24px' height='24px' stroke='var(--primary-accent)'/>
                     <input type='text' placeholder="Description" />
@@ -20,15 +17,15 @@
             </div>
         </div>
         <div class='bottom'>
-            <div class='time'>
+            <div class='info-stack time'>
                 <TimerIcon class='time-icon' width='48px' height='48px' stroke='var(--gray-7)' fill='var(--gray-b)'/>
                 <input type="number" placeholder="0s" />
             </div>
-            <div class='focus'>
+            <div class='info-stack focus'>
                 <PersonIcon class='data-icon' beam_color="#e3b024" :beam_size="beam_size" width='72px' height='72px' stroke='var(--gray-7)' fill='var(--gray-b)' />
-                <Dropdown class='dropdown' :options="DropdownItems" @item='updateSelection' />
+                <Dropdown class='dropdown' bg='var(--gray-b)' :options="DropdownItems" height='28px' @item='updateSelection' />
             </div>
-            <div class='focus'>
+            <div class='frame'>
                 <SpotFrame />
             </div>
         </div>
@@ -36,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import TargetIcon from '../../assets/svg/TargetIcon.vue' 
 import RightArrowIcon from '../../assets/svg/RightArrow.vue'
 import InfoIcon from '../../assets/svg/InfoIcon.vue'
 import TimerIcon from '../../assets/svg/TimerIcon.vue'
@@ -72,10 +68,13 @@ const updateSelection = (item: string) => {
 <style scoped>
 .fs-cue {
     height: 250px; 
+    min-width: 250px;
     width: clamp(200px, 500px, 1000px);
-    background-color: var(--gray-a);
+    background-color: var(--gray-b);
+    border: 1px solid var(--gray-8);
     border-radius: 10px;
     margin: 20px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -90,13 +89,15 @@ const updateSelection = (item: string) => {
 .cue-icon {
     margin-left: 20px;
     margin-right: -20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .shrek {
     width: 90px;
     height: 90px;
     margin: 10px;
-    border: 1px solid var(--gray-8);
     padding: 10px;
     border-radius: 5px;
 }
@@ -109,6 +110,14 @@ const updateSelection = (item: string) => {
     align-items: center;
 }
 
+.info-stack {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 3px;
+}
+
 .data {
     display: flex;
     align-items: center;
@@ -116,9 +125,21 @@ const updateSelection = (item: string) => {
     margin: 3px;
 }
 
+.cue-icon > input {
+    height: 24px;
+    width: 100px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--gray-b);
+    border-radius: 8px;
+    text-align: center;
+    color: var(--gray-4);
+    flex: 8;
+}
+
 .data > input {
     height: 24px;
-    background-color: var(--gray-a);
+    background-color: var(--gray-b);
     border: 1px solid var(--gray-8);
     border-radius: 8px;
     text-align: center;
@@ -143,7 +164,7 @@ const updateSelection = (item: string) => {
     width: 48px;
     font-size: 16px;
     border: none;
-    background-color: var(--gray-a);
+    background-color: var(--gray-b);
     border-radius: 8px;
     text-align: center;
     color: var(--gray-4);
@@ -156,17 +177,19 @@ const updateSelection = (item: string) => {
 }
 
 .time > input::placeholder {
-    color: var(--gray-8);
+    color: var(--gray-3);
 }
 
 .data-icon {
     flex: 1;
 }
 
+
 .bottom {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    padding: 5px 5px;
 }
 
 .focus {
@@ -174,7 +197,9 @@ const updateSelection = (item: string) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100px;
 }
+
 
 p {
     margin-top: -3px;

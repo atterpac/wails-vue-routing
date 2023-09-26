@@ -38,6 +38,10 @@
                             <input type="text" placeholder="Frame Label" id='frame{{frame}}'>
                         </div>
                     </div>
+                    <div class='setting'>
+                        <label for="type">Position</label>
+                        <input type="text" placeholder="Position" id='type'>
+                    </div>
                 </div>
             </div>
             <div v-if='activeTab == "targets"'>
@@ -50,8 +54,6 @@
 <script setup lang="ts">
 import { ref, Ref } from 'vue'
 const activeTab = ref("operators");
-const pureColor = ref<ColorInputWithoutInstance>("red");
-const gradientColor = ref("linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 100%)");
 const numOfFrames = ref(0);
 const frameCollapse = ref(false);
 
@@ -155,7 +157,7 @@ const selectTab = (e:Event) => {
 
 .setting > input {
     padding: 5px 10px;
-    background-color: var(--gray-b);
+    background-color: var(--bg-darker);
     border: 1px solid var(--gray-7);
     color: var(--gray-1);
     border-radius: 5px;
