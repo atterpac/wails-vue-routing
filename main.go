@@ -2,9 +2,12 @@ package main
 
 import (
 	"embed"
+	"yagami/api"
+	"yagami/api/controllers"
 
 	"github.com/wailsapp/wails/v2"
-	"github.com/wailsapp/wails/v2/pkg/logger"
+
+	// "github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 	"github.com/wailsapp/wails/v2/pkg/options/linux"
@@ -17,8 +20,7 @@ var assets embed.FS
 
 func main() {
 	// Create an instance of the app structure
-	app := NewApp()
-	go SurrealStart()	
+	app := controllers.NewApp()
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "Project Yagami",
@@ -30,8 +32,8 @@ func main() {
 		Frameless:       true,
 		CSSDragProperty: "widows",
 		CSSDragValue:    "1",
-		OnStartup: app.startup,
-		LogLevel: logger.ERROR,
+		OnStartup: app.Startup,
+		Logger: nil,
 		// Color seen while refreshing or resizing
 		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 255},
 		Bind: []interface{}{
@@ -58,4 +60,5 @@ func main() {
 		println("Error:", err.Error())
 
 	}
+	api.Run()	
 }

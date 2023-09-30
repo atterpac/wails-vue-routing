@@ -1,7 +1,6 @@
 DEFINE TABLE cues;
 
-DEFINE FIELD id ON TABLE cues TYPE string
-    ASSERT string::is::uuid($value);
+DEFINE FIELD id ON TABLE cues TYPE string;
 DEFINE FIELD num ON TABLE cues TYPE number;
 DEFINE FIELD part ON TABLE cues TYPE number;
 DEFINE FIELD time_up ON TABLE cues TYPE number;
