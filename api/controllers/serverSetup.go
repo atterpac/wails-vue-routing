@@ -6,6 +6,7 @@ import (
 	"os"
 	"yagami/api/models"
 
+	"github.com/google/uuid"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -13,7 +14,8 @@ import (
 // App struct
 type App struct {
 	ctx context.Context
-	db *gorm.DB	
+	Db  *gorm.DB
+	CurrentEvent uuid.UUID
 }
 
 // NewApp creates a new App application struct
@@ -47,9 +49,9 @@ func (a *App) SQLStart(dbPath string) error {
 		log.Println("Error Opening DB:", err.Error())
 		return err
 	}
-	a.db = db
+	a.Db = db
 
-	err = a.db.AutoMigrate(&models.User{}, &models.Event{}, &models.Followspot{}, &models.Frame{}, &models.FollowspotCue{}, models.VWXFixture{})
+	err = a.Db.AutoMigrate(&models.User{}, &models.Event{}, &models.Followspot{}, &models.Frame{}, &models.FollowspotCue{}, models.VWXFixture{}, models.Fixture{})
 	if err != nil {
 		log.Println("Error Migrating DB:", err.Error())
 		return err

@@ -9,16 +9,18 @@ import (
 )
 
 type Event struct {
-	Id uuid.UUID `json:"id"`
-	Name string `json:"name"`
-	Location string `json:"location"`
-	StartDate string `json:"start_date"`
-	EndDate string `json:"end_date"`
-	CreatedAt time.Time `json:"created_at"`
-	ModifiedAt time.Time `json:"modified_at"`
-	DeletedAt gorm.DeletedAt `json:"deleted_at"`
-	Users []User `json:"users" gorm:"many2many:user_events;"`
+	Id          uuid.UUID    `json:"id"`
+	Name        string       `json:"name"`
+	Location    string       `json:"location"`
+	StartDate   string       `json:"start_date"`
+	EndDate     string       `json:"end_date"`
+	Users       []User       `json:"users" gorm:"many2many:user_events;"`
 	Followspots []Followspot `json:"followspots"`
+	Fixtures    []Fixture    `json:"fixtures"`
+
+	DeletedAt  gorm.DeletedAt `json:"deleted_at"`
+	CreatedAt  time.Time      `json:"created_at"`
+	ModifiedAt time.Time      `json:"modified_at"`
 }
 
 func (e *Event) BeforeCreate(tx *gorm.DB) error {
@@ -75,3 +77,17 @@ func GetAllEvents(db *gorm.DB) ([]Event, error) {
 	return events, nil
 }
 
+func FindEventsByUser(db *gorm.DB, userID uuid.UUID) ([]Event, error) {
+	var events []Event
+	err := db.
+		Preload("Users").
+		Joins("JOIN user_events ON user_events.event_id = events.id").
+		Where("user_events.user_id = ?", userID).
+		Find(&events).
+		Error
+	if err != nil {
+		log.Println("Error getting events: ", err)
+		return []Event{}, err
+	}
+	return events, nil
+}

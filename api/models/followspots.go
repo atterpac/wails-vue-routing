@@ -48,6 +48,16 @@ func GetFollowspotById(db *gorm.DB, id uuid.UUID) (*Followspot, error) {
 	return &followspot, nil
 }
 
+func GetFollowspotsByEvent(db *gorm.DB, eventId uuid.UUID) ([]Followspot, error) {
+	var followspots []Followspot
+	err := db.Where("event_id = ?", eventId).Find(&followspots).Error
+	if err != nil {
+		return []Followspot{}, err
+	}
+	return followspots, nil
+}
+
+
 func (f *Followspot) Create(db *gorm.DB) (*Followspot, error) {
 	err := db.Create(&f).Error
 	if err != nil {

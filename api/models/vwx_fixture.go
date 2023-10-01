@@ -164,8 +164,7 @@ type Accessories struct {
 }
 
 func (f *VWXFixture) Save(db *gorm.DB) (*VWXFixture, error) {
-	var err error
-	err = db.Save(f).Error
+	err := db.Save(f).Error
 	if err != nil {
 		fmt.Println("Error Saving: ", err)
 		return f, err
@@ -174,8 +173,7 @@ func (f *VWXFixture) Save(db *gorm.DB) (*VWXFixture, error) {
 }
 
 func (f *VWXFixture) Delete(db *gorm.DB) (*VWXFixture, error) {
-	var err error
-	err = db.Delete(f).Error
+	err := db.Delete(f).Error
 	if err != nil {
 		fmt.Println("Error Deleting")
 		return f, err
@@ -184,9 +182,8 @@ func (f *VWXFixture) Delete(db *gorm.DB) (*VWXFixture, error) {
 }
 
 func (f *VWXFixture) FindFixturesByEvent(db *gorm.DB, event guuid.UUID) ([]VWXFixture, error) {
-	var err error
 	var fixtures []VWXFixture
-	err = db.Where("event_id = ?", event).Find(&fixtures).Error
+	err := db.Where("event_id = ?", event).Find(&fixtures).Error
 	if err != nil {
 		fmt.Println("Error Deleting")
 		return nil, err

@@ -38,6 +38,16 @@ func GetFollowspotCueById(db *gorm.DB, id uuid.UUID) (*FollowspotCue, error) {
 	return &cue, nil
 }
 
+func GetFollowspotCuesByEvent(db *gorm.DB, id uuid.UUID) ([]FollowspotCue, error) {
+	var cues []FollowspotCue
+	err := db.Where("event_id = ?", id).Find(&cues).Error
+	if err != nil {
+		log.Println("Error getting user: ", err)
+		return []FollowspotCue{}, err
+	}
+	return cues, nil
+}
+
 func (fsq *FollowspotCue) Create(db *gorm.DB) (*FollowspotCue, error) {
 	err := db.Create(&fsq).Error
 	if err != nil {
