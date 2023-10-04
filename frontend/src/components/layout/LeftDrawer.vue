@@ -1,8 +1,8 @@
 <template>
 <div class="drawer-container noselect">
- <div class="drawer-left" :style="{ width: props.isCollapse ?  '36px' : '160px' }"> 
-    <div class="nav">
-        <div class="nav-item" v-for="item in navItems" :style="{ width: props.isCollapse ? '36px' : '160px' }" @click="onClick(item.path)">
+ <div class="drawer-left" :style="{ width: props.isCollapse ?  '24px' : '160px' }"> 
+     <div class="nav" :style="{ width: props.isCollapse ? '24px' : '160px'}">
+         <div class="nav-item" v-for="item in navItems" :style="{ width: props.isCollapse ? '36px' : '160px' }" @click="onClick(item.path)" :class="{'is-active': $route.path === item.path }">
         <Component :is=item.icon fill="none" :style="{ stroke: iconColor}" width="24px" height="24px" />
                 <p v-if="!props.isCollapse">{{item.label}}</p>
             </div>
@@ -14,30 +14,20 @@
 <style>
 .drawer-container {
     display: flex;
+    margin-right: 10px;
 }
-  .drawer-left {
+.drawer-left {
     padding: 10px; /* Add padding for spacing */
-  }
-
-  .resize {
-    width: 5px;
-    border-radius: 3px;
-    background-color: #3d3d3d;
-    cursor: ew-resize;
-    display: none;
-  }
-
-  .drawer-container:hover .resize{
-    display: block;
-    resize: both;
 }
 
 .nav {
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 5px;
+    margin-left: 5px;
 }
 
 .nav-item {
@@ -57,6 +47,10 @@
 
 .nav-item:hover {
     background-color: var(--gray-8);
+}
+
+.is-active {
+    background-color: var(--gray-9);
 }
 </style>
 

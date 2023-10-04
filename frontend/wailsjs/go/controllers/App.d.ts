@@ -37,6 +37,8 @@ export function GetUsers():Promise<Array<models.User>>;
 
 export function SQLStart(arg1:string):Promise<void>;
 
+export function SelectEvent(arg1:uuid.UUID):Promise<void>;
+
 export function UpdateEvent(arg1:models.Event):Promise<models.Event>;
 
 export function UpdateFollowspot(arg1:models.FollowspotCue):Promise<models.FollowspotCue>;

@@ -9,6 +9,7 @@ import MinimizeIcon from '../../assets/svg/MinimizeIcon.vue';
 import SpotlightIcon from '../../assets/svg/SpotlightIcon.vue';
 import CogIcon from '../../assets/svg/CogIcon.vue';
 import SideNavIcon from '../../assets/svg/SideNavIcon.vue'
+import { GetUsers } from '../../../wailsjs/go/controllers/App'
 const search = ref("")
 const spotlightClicked = ref<Boolean>(false)
 
@@ -24,13 +25,19 @@ const spotlight = (e: Event) => {
     }
 }
 
-const iconColor = ref<String>("var(--gray-3)")
+const getUsers = () => {
+    GetUsers().then((users) => {
+        console.log(users)
+    })
+    console.log("user gotten")
+}
+const iconColor = ref<String>("var(--gray-4)")
 </script>
 
 <template>
   <div class="header noselect" style="widows: 1;">
     <div class="left">
-        <div class="action"><CogIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none" /> </div>
+        <div class="action" @click='getUsers'><CogIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none" /> </div>
         <div class="action" @click="$emit('navCollapse')"><SideNavIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" fill="none" /> </div>
     </div>
     <div class="search noselect" style="widows: 2">
@@ -43,9 +50,9 @@ const iconColor = ref<String>("var(--gray-3)")
             <div class="action spotlight " @click="spotlight"> <SpotlightIcon width="24px" height="24px" :style="{ stroke: iconColor, fill: iconColor}" /> </div>
         </div>       
         <div class="window-actions">
-            <div class="action"><MinimizeIcon width="18px" height="18px" :style="{ stroke: iconColor, fill: iconColor}" /></div>
-            <div class="action"><MaximizeIcon width="18px" height="18px" :style="{ stroke: iconColor}" /></div>
-            <div class="action cancel"><CloseIcon width="18px" height="18px" :style="{ stroke: iconColor, fill: iconColor}" /></div>
+            <div class="action"><MinimizeIcon width="16px" height="16px" :style="{ stroke: iconColor, fill: iconColor}" /></div>
+            <div class="action"><MaximizeIcon width="16px" height="16px" :style="{ stroke: iconColor}" /></div>
+            <div class="action cancel"><CloseIcon width="16px" height="16px" :style="{ stroke: iconColor, fill: iconColor}" /></div>
         </div>
     </div>
   </div>
@@ -53,11 +60,12 @@ const iconColor = ref<String>("var(--gray-3)")
 
 <style>
   .header {
-    height: 24px; /* Adjust height as needed */
+    height: 20px; /* Adjust height as needed */
     display: flex;
     align-items: center; /* Center content vertically */
     justify-content: space-between; /* Add space between header elements */
     padding: 10px; /* Add padding for spacing */
+    margin-bottom: 5px;
   }
 
   .search-bar {
@@ -69,7 +77,7 @@ const iconColor = ref<String>("var(--gray-3)")
     border-bottom-left-radius: 8px;
     justify-self: center;
     background-color: var(--gray-b);
-    height: 30px;
+    height: 28px;
     
     outline: none;
     width: 325px;
@@ -83,7 +91,8 @@ const iconColor = ref<String>("var(--gray-3)")
     border: 0.5px solid var(--gray-9);
     background-color: var(--gray-c);
     border-radius: 10px;
-    margin-top: 10px;
+    height: 30px;
+    margin-top: 5px;
 }
 
 .search:focus-within {
@@ -119,7 +128,7 @@ const iconColor = ref<String>("var(--gray-3)")
 }
 
 .window-actions {
-    height: 44px;
+    height: 30px;
     width: 150px;
     display: flex;
     justify-content: space-between;
@@ -129,7 +138,7 @@ const iconColor = ref<String>("var(--gray-3)")
 .action {
     width: 44px;
     height: 44px;
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,6 +150,7 @@ const iconColor = ref<String>("var(--gray-3)")
 }
 
 .right .cancel:last-child:hover {
+    border-radius: 0;
     background-color: #b22222;
 }
 

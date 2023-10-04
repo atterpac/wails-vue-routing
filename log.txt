@@ -46,3 +46,69 @@
 
 <=================== YAGAMI V0.0.0 STARTED =====================>
 2023/10/01 16:51:12 Database started
+2023/10/02 18:58:12 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 18:58:12 Database started
+2023/10/02 18:58:18 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 18:58:18 Database started
+2023/10/02 18:58:21 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 18:58:21 Database started
+2023/10/02 19:00:17 suppressing panic for copyResponse error in test; copy error: unable to finish request: StatusCodes not supported: 500 - Internal Server Error
+2023/10/02 19:01:58 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 19:01:58 Database started
+2023/10/02 19:02:55 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 19:02:55 Database started
+2023/10/02 19:02:59 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 19:02:59 Database started
+2023/10/02 19:03:01 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 19:03:01 Database started
+2023/10/02 19:03:49 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/02 19:03:49 Database started
+2023/10/03 07:58:51 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/03 07:58:51 Database started
+2023/10/03 07:58:55 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/03 07:58:55 Database started
+2023/10/03 07:58:58 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/03 07:58:58 Database started
+2023/10/03 08:16:53 Unsolicited response received on idle HTTP channel starting with "HTTP/1.1 400 Bad Request\r\n\r\n"; err=<nil>
+2023/10/03 09:06:38 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/03 09:06:38 Database started
+2023/10/04 15:26:18 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/04 15:26:18 Database started
+2023/10/04 15:26:23 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/04 15:26:23 Database started
+2023/10/04 15:26:26 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/04 15:26:26 Database started
+2023/10/04 16:52:59 
+
+<=================== YAGAMI V0.0.0 STARTED =====================>
+2023/10/04 16:52:59 Database started

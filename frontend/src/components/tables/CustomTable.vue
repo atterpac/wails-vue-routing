@@ -1,52 +1,54 @@
 <template>
   <div class="table">
-    <div class="table-container" style="max-height: props.maxHeight + vh">
+    <div style="max-height: props.maxHeight + vh">
       <div class="header">
             <h1>{{props.title}}</h1>
             <button>+</button>
-          </div>
-      <table>
-      <thead>
-          <tr class="table-head">
-            <template v-for="column in props.columns">
-              <th 
-                v-if="column.visible"
-                style="{width: column.width + 'px'}"  
-                :data-col=column.data
-              >
-                  {{column.label}}
-              </th>
-          </template>
-            <th>
-              <CogIcon width="24px" height="24px" :style="{ stroke: 'var(--gray-4)', fill: 'var(--gray-4)'}" fill="none" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="data" v-for="data, idx in tableData" :key="idx"  :data-row="idx">
-            <td class="data-cell" 
-                v-for="value in dataKeys" 
-                :data-col="value" 
-                :data-row="idx" 
-                :data-selected="false" 
-                @click="clickedInput"
-            >
-              {{( data[value] )}}
-            </td>
-            <td class="options" 
-                data-col="actions" 
-                :data-row="idx"
-            >
-              <OptionsIcon 
-                @click="clickedOptions" 
-                :data-row="idx" 
-                class="option-icon" 
-                width="24px" 
-                height="24px"/>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      </div>
+      <div class='table-container'>
+          <table>
+              <thead>
+                  <tr class="table-head">
+                    <template v-for="column in props.columns">
+                      <th 
+                        v-if="column.visible"
+                        style="{width: column.width + 'px'}"  
+                        :data-col=column.data
+                      >
+                          {{column.label}}
+                      </th>
+                  </template>
+                    <th>
+                      <CogIcon width="24px" height="24px" :style="{ stroke: 'var(--gray-4)', fill: 'var(--gray-4)'}" fill="none" />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="data" v-for="data, idx in tableData" :key="idx"  :data-row="idx">
+                    <td class="data-cell" 
+                        v-for="value in dataKeys" 
+                        :data-col="value" 
+                        :data-row="idx" 
+                        :data-selected="false" 
+                        @click="clickedInput"
+                    >
+                      {{( data[value] )}}
+                    </td>
+                    <td class="options" 
+                        data-col="actions" 
+                        :data-row="idx"
+                    >
+                      <OptionsIcon 
+                        @click="clickedOptions" 
+                        :data-row="idx" 
+                        class="option-icon" 
+                        width="24px" 
+                        height="24px"/>
+                    </td>
+                  </tr>
+                </tbody>
+          </table>
+        </div>
     </div>
     <div class="option-box" v-if="isOptionShown" :style="{top: optionPosition.y, left: optionPosition.x}">
       I am floating box
@@ -188,7 +190,7 @@ const RemoveListener = (el: HTMLElement, event: string, listenFunc: EventListene
 
 const isPastBoundry = (el: HTMLElement, boundry: DOMRect, listenFunc: EventListener, listenEl: HTMLElement) => {
     const cords = el.getBoundingClientRect();
-    if (boundry.top && (boundry.top > cords.top || boundry.bottom < cords.bottom)) {
+    if ((boundry.top > cords.top || boundry.bottom < cords.bottom)) {
       RemoveListener(listenEl,'scroll', listenFunc)
       isInputShown.value = false;
       return true
@@ -286,18 +288,18 @@ const dataKeys = computed(() => {
 .table {
   width: 100%;
   height: 90%;
-  padding: 0px 20px 20px 20px;
+  padding: 5px 5px 5px 10px;
 }
 
 .header {
     position: sticky;
     width: 100%;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-darker);
     height: 40px;
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 4;
     border-radius: 5px;
     margin-left: -5px;
 }
@@ -306,19 +308,32 @@ table {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
+  overflow: auto;
 }
 
+.table-container {
+ width: 100%;
+ height: 100%;
+}
+
+
 thead {
-  padding-top: 40px;
+  margin-top: 10px;
   border-radius: 3px;
-  background-color: var(--bg-darker);
+  background-color: var(--bg-dark);
   position: sticky;
   top: 60px;
-  z-index: 2; /* Ensure the header is above the table body */
+  z-index: 4; /* Ensure the header is above the table body */
 }
 
 .table-head {
-  height: 50px;
+  height: 45px;
+}
+
+
+tbody {
+    overflow: auto;
+    margin-top: 10px;
 }
 
 tr {
@@ -344,7 +359,7 @@ th:last-child {
 }
 
 .data:nth-child(even) {
-  background-color: var(--bg-darker);
+  background-color: var(--bg-dark);
 }
 
 .data:nth-child(even) td:first-child {
@@ -405,8 +420,7 @@ button:hover{
 
 .option-box {
   background-color: var(--bg-darker);
-  border: 2px solid var(--primary-accent-dark);
-  box-shadow: 0px 0px 8px 0px var(--primary-accent-dark);
+  border: .75px solid var(--gray-9);
   padding: 10px;
   position: absolute;
   z-index: 2;
@@ -417,10 +431,10 @@ button:hover{
 
 .input-box {
   background-color: var(--bg-darker);
-  border: 0.5px solid var(--primary-accent-dark);
+  border: 0.25px solid var(--primary-accent-dark);
   position: absolute;
   z-index: 1;
-  border-radius: 2px;
+  border-radius: 1px;
   align-items: center;
   justify-content: center;
 }

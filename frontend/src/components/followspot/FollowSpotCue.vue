@@ -23,7 +23,7 @@
             </div>
             <div class='info-stack focus'>
                 <PersonIcon class='data-icon' beam_color="#e3b024" :beam_size="beam_size" width='72px' height='72px' stroke='var(--gray-7)' fill='var(--gray-b)' />
-                <Dropdown class='dropdown' bg='var(--gray-b)' :options="DropdownItems" height='28px' @item='updateSelection' />
+                <Dropdown class='dropdown' bg='var(--bg-dark)' :options="DropdownItems" height='28px' @item='updateSelection' />
             </div>
             <div class='frame'>
                 <SpotFrame />
@@ -70,7 +70,7 @@ const updateSelection = (item: string) => {
     height: 250px; 
     min-width: 250px;
     width: clamp(200px, 500px, 1000px);
-    background-color: var(--gray-b);
+    background-color: var(--bg-dark);
     border: 1px solid var(--gray-8);
     border-radius: 10px;
     margin: 20px;
@@ -130,8 +130,10 @@ const updateSelection = (item: string) => {
     width: 100px;
     font-size: 16px;
     border: none;
-    background-color: var(--gray-b);
+    background-color: var(--bg-dark);
+    border: 1px solid var(--gray-7);
     border-radius: 8px;
+    padding: 5px;
     text-align: center;
     color: var(--gray-4);
     flex: 8;
@@ -139,9 +141,10 @@ const updateSelection = (item: string) => {
 
 .data > input {
     height: 24px;
-    background-color: var(--gray-b);
-    border: 1px solid var(--gray-8);
+    background-color: var(--bg-dark);
     border-radius: 8px;
+    border: 1px solid var(--gray-7);
+    padding: 5px;
     text-align: center;
     flex: 8;
 }
@@ -164,7 +167,7 @@ const updateSelection = (item: string) => {
     width: 48px;
     font-size: 16px;
     border: none;
-    background-color: var(--gray-b);
+    background-color: var(--bg-dark);
     border-radius: 8px;
     text-align: center;
     color: var(--gray-4);

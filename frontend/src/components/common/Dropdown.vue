@@ -27,6 +27,10 @@ const props = defineProps({
     height: {
         type: String,
         default: '30px'
+    },
+    bg: {
+        type: String,
+        default: 'var(--bg-dark)'
     }
 })
 
@@ -78,7 +82,7 @@ const setChecked = (e: Event) => {
   align-self:center;
   justify-content:center;
   text-align: center;
-  background:var(--gray-b);
+  background:var(--bg-dark);
   position:absolute;
   top:0;
   width: 100%;

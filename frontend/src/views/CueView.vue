@@ -11,7 +11,6 @@ import { Ref, ref } from 'vue';
 import Table from '../components/tables/CustomTable.vue';
 import { Column } from '../components/tables/column';
 import { CueData, CueColumns } from '../components/tables/cues/cuedata';
-
 </script>
 
 <style scoped>

@@ -70,6 +70,10 @@ export function SQLStart(arg1) {
   return window['go']['controllers']['App']['SQLStart'](arg1);
 }
 
+export function SelectEvent(arg1) {
+  return window['go']['controllers']['App']['SelectEvent'](arg1);
+}
+
 export function UpdateEvent(arg1) {
   return window['go']['controllers']['App']['UpdateEvent'](arg1);
 }

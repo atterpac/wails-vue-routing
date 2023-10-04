@@ -55,16 +55,17 @@ const toggleDrawer = () => {
 }
 
 .routerview {
-    background-color: var(--bg-dark);
-    padding: 10px;
+    background-color: var(--bg-dark-darker);
+    padding-top: 0px;
+    padding-left: 10px;
     border-radius: 8px;
-    border: 0.25px solid #242629;
-    margin: 10px 10px 10px 0px;
     display: flex;
     flex: 5;
     box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2);
     min-width: 300px;
     overflow: hidden;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .right-drawer {
